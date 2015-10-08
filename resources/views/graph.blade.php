@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="refresh" content="10" >
     <title>Laravel</title>
 
     <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
@@ -39,7 +40,13 @@
 <body>
 <div class="container">
     <div class="content">
-        <div class="title">Thermometer</div>
+
+        {!! HTML::image('login-hour.gif', 'a picture') !!} <br/>
+        {!! HTML::image('login-day.gif', 'a picture') !!} <br/>
+        {!! HTML::image('login-week.gif', 'a picture') !!}<br/>
+        {!! HTML::image('login-month.gif', 'a picture') !!}<br/>
+        {{--{!! HTML::image('login-year.gif', 'a picture') !!}<br/>--}}
+
     </div>
 </div>
 </body>
