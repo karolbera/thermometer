@@ -24,11 +24,11 @@
         "psr-4": {
             "App\\": "app/"
         },
-        "files": [
-            "vendor/jpgraph/jpgraph/lib/JpGraph/src/jpgraph.php",
-            "vendor/jpgraph/jpgraph/lib/JpGraph/src/jpgraph_line.php",
-            "vendor/jpgraph/jpgraph/lib/JpGraph/src/jpgraph_regstat.php"
-        ]
+//        "files": [
+//            "vendor/jpgraph/jpgraph/lib/JpGraph/src/jpgraph.php",
+//            "vendor/jpgraph/jpgraph/lib/JpGraph/src/jpgraph_line.php",
+//            "vendor/jpgraph/jpgraph/lib/JpGraph/src/jpgraph_regstat.php"
+//        ]
     },
     "autoload-dev": {
         "classmap": [

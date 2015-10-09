@@ -13,7 +13,6 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \App\Console\Commands\Inspire::class,
         \App\Console\Commands\GetTemperatureCommand::class,
         \App\Console\Commands\StoreTemperatureCommand::class,
     ];
