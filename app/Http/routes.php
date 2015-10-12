@@ -15,4 +15,8 @@
 //    return view('graph');
 //});
 
-Route::get('/', 'displayGraph@index');
+Route::get('/', 'GraphController@index');
+Route::get('/send-email', 'EmailController@sendEmail');
+Route::get('/check/tooHot', 'CheckTempController@tooHot');
+Route::get('/check/tooCool', 'CheckTempController@tooCool');
+Route::get('/check/thermometer', 'CheckTempController@thermometer');

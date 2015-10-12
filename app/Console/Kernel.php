@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         \App\Console\Commands\GetTemperatureCommand::class,
         \App\Console\Commands\StoreTemperatureCommand::class,
+        \App\Console\Commands\SendReportCommand::class,
     ];
 
     /**

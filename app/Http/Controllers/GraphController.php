@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use \Illuminate\Support\Facades\Config;
 
-class displayGraph extends Controller
+class GraphController extends Controller
 {
     private $public_path;
 
@@ -14,6 +14,7 @@ class displayGraph extends Controller
         $this->floorLvl1 = Config::get('config.floorLvl1');
         $this->ceilingLvl1 = Config::get('config.ceilingLvl1');
         $this->ceilingLvl2 = Config::get('config.ceilingLvl2');
+        $this->amountOfChecks = Config::get('config.amountOfChecks');
     }
 
     /*
@@ -26,6 +27,7 @@ class displayGraph extends Controller
         $this->createGraph($this->public_path . "/login-day.gif", "-1d", "Daily temperatures");
         $this->createGraph($this->public_path . "/login-week.gif", "-1w", "Weekly temperatures");
         $this->createGraph($this->public_path . "/login-month.gif", "-1m", "Monthly temperatures");
+
         return view('graph');
     }
 
