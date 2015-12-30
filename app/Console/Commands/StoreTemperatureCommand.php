@@ -106,6 +106,9 @@ class StoreTemperatureCommand extends Command
      */
     public function getTemperature()
     {
+        //$temp = rand(22, 23);
+        //$temp = $temp . "." . rand(1, 100);
+        //return (float)$temp;
         return $temp = exec('cat /var/run/papouch-tmu/temperature');
     }
 
@@ -134,21 +137,21 @@ class StoreTemperatureCommand extends Command
 
         if ($errors['counter'] >= $this->amountOfChecks
             && $errors['too_hot'] >= $this->amountOfChecks) {
-            /* todo
+            /** todo
              * implement sending sms
              */
             Log::info('Sending SMS - too hot');
         }
         if ($errors['counter'] >= $this->amountOfChecks
             && $errors['too_cool'] >= $this->amountOfChecks) {
-            /* todo
+            /** todo
              * implement sending sms
              */
             Log::info('Sending SMS - too cool');
         }
         if ($errors['counter'] >= $this->amountOfChecks
             && $errors['thermometer_not_working'] >= $this->amountOfChecks) {
-            /* todo
+            /** todo
              * implement sending sms
              */
             Log::info('Sending SMS - thermometer error');
