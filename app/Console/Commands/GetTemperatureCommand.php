@@ -37,6 +37,7 @@ class GetTemperatureCommand extends Command
      */
     public function handle()
     {
+        //$temperature = rand(22, 23);
         $temperature = exec('cat /var/run/papouch-tmu/temperature');
         $this->comment($temperature);
     }
