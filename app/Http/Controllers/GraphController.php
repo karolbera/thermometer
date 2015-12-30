@@ -23,29 +23,43 @@ class GraphController extends Controller
      */
     public function index()
     {
-        $this->createGraph($this->public_path . "/login-hour.gif", "-1h", "Hourly temperatures");
-        $this->createGraph($this->public_path . "/login-day.gif", "-1d", "Daily temperatures");
-        $this->createGraph($this->public_path . "/login-week.gif", "-1w", "Weekly temperatures");
-        $this->createGraph($this->public_path . "/login-month.gif", "-1m", "Monthly temperatures");
+        $this->createGraph($this->public_path . "/login-hour.gif", "-1h", "Hourly temperatures", "1200");
+        $this->createGraph($this->public_path . "/login-day.gif", "-1d", "Daily temperatures", "1200");
+        $this->createGraph($this->public_path . "/login-week.gif", "-1w", "Weekly temperatures", "1200");
+        $this->createGraph($this->public_path . "/login-month.gif", "-1m", "Monthly temperatures", "1200");
 
-        return view('graph');
+        $this->createGraph($this->public_path . "/login-hour_small.gif", "-1h", "Hourly temperatures", "250");
+        $this->createGraph($this->public_path . "/login-day_small.gif", "-1d", "Daily temperatures", "250");
+        $this->createGraph($this->public_path . "/login-week_small.gif", "-1w", "Weekly temperatures", "250");
+        $this->createGraph($this->public_path . "/login-month_small.gif", "-1m", "Monthly temperatures", "250");
+
+        $temp['current'] = app('App\Console\Commands\StoreTemperatureCommand')->getTemperature();
+
+        $temp['h'] = $this->getInfo("1m", "-1h");
+        $temp['d'] = $this->getInfo("1m", "-24h");
+        $temp['w'] = $this->getInfo("1m", "-7d");
+        $temp['m'] = $this->getInfo("1m", "-30d");
+
+        return view('graph', array('temp' => $temp));
     }
 
     /*
      * wrapper on rrd_graph function
      */
-    function createGraph($output, $start, $title)
+    function createGraph($output, $start, $title, $width)
     {
         $options = array(
-            "--width=1200",
+            "--width=$width",
             "--slope-mode",
             "--start", $start,
             "--title=$title",
-            "--vertical-label=Temperature",
             "--lower=0",
             "DEF:temp=$this->public_path/temperatures.rrd:temp:AVERAGE",
-            "AREA:temp#00FF00:Temperature",
+            "AREA:temp#FFCC00:Temperature",
             "COMMENT:\\n",
+            "GPRINT:temp:MIN:Min\: %6.2lf %S",
+            "GPRINT:temp:AVERAGE:Avg\: %6.2lf %S",
+            "GPRINT:temp:MAX:Max\: %6.2lf %S\\n",
         );
 
         $ret = rrd_graph($output, $options);
@@ -72,6 +86,38 @@ class GraphController extends Controller
         if (!$ret) {
             echo "<b>Creation error: </b>" . rrd_error() . "\n";
         }
+    }
+
+
+    public function getInfo($resolution = "1m", $time = "-1h")
+    {
+        // Consider now that you want to fetch the 15 minute average data for the last hour. You might try
+        // rrdtool fetch subdata.rrd AVERAGE -r 15m -s -1h
+
+        $result = rrd_fetch( $this->public_path . "/temperatures.rrd",
+                            array( "AVERAGE", "-r", $resolution, "-s", $time) );
+
+//        echo '<hr/><pre>';
+//        print_r($result);
+//        echo '</pre><hr/>';
+
+        array_pop($result['data']['temp']);
+        $result['data']['temp'] = $this->array_delete($result['data']['temp'], "NAN");
+//        print_r($result['data']['temp']);
+//        print_r($result['data']['temp']);
+
+
+        $result = array(
+                    'min' => round( min($result['data']['temp']), 2),
+                    'avg' => round( array_sum($result['data']['temp']) / count($result['data']['temp']), 2),
+                    'max' => round( max($result['data']['temp']), 2),
+        );
+        return $result;
+    }
+
+    function array_delete($array, $element)
+    {
+        return array_diff($array, [$element]);
     }
 
 }
