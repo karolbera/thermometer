@@ -108,7 +108,7 @@ class StoreTemperatureCommand extends Command
     public function getTemperature()
     {
 
-        if($_ENV['APP_MOCK']) {
+        if($_ENV['APP_MOCK']  == "true") {
             $temp = rand(22, 23);
             $temp = $temp . "." . rand(1, 100);
             $temp = (float)$temp;
