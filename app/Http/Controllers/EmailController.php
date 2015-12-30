@@ -94,9 +94,14 @@ class EmailController extends Controller
     public function sendEmail()
     {
 
-        Mail::send('emails.graph', ['user' => 'bogdan.juszczak@makingwaves.com'], function ($message) {
+        $data = [
+//            'temp' => '15.0',
+            'user' => 'bogdan.juszczak@makingwaves.com',
+        ];
+        Mail::send('emails.graph', $data, function ($message) {
             $message->to('bogdan.juszczak@makingwaves.com', 'Bogdan')->subject('Weekly temperatures');
-            $message->attach($this->public_path . "/login-week.gif");
+            $message->embed($this->public_path . "/login-day.gif");
+            $message->embed($this->public_path . "/login-week.gif");
         });
     }
 
