@@ -4,3 +4,5 @@ Homestead.yaml
 Homestead.json
 /public/*.gif
 .env
+/.idea
+/public/temperatures.rrd
