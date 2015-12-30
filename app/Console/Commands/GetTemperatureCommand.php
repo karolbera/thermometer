@@ -43,6 +43,7 @@ class GetTemperatureCommand extends Command
             $temperature = rand(22, 23);
         } else {
             $temperature = exec('cat /var/run/papouch-tmu/temperature');
+            $temperature = round($temperature, 2);
         }
         $this->comment($temperature);
     }
