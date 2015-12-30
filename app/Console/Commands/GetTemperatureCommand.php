@@ -39,9 +39,7 @@ class GetTemperatureCommand extends Command
     public function handle()
     {
 
-        $environment = App::environment();
-
-        if($environment == 'local') {
+        if($_ENV['APP_MOCK']) {
             $temperature = rand(22, 23);
         } else {
             $temperature = exec('cat /var/run/papouch-tmu/temperature');
