@@ -20,3 +20,5 @@ Route::get('/send-email', 'EmailController@sendEmail');
 Route::get('/check/tooHot', 'CheckTempController@tooHot');
 Route::get('/check/tooCool', 'CheckTempController@tooCool');
 Route::get('/check/thermometer', 'CheckTempController@thermometer');
+Route::get('/check/current', 'CheckTempController@current');
+Route::get('/init/dbFile', 'GraphController@createRRDfile');
