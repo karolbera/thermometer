@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\App;
 
 class GetTemperatureCommand extends Command
 {
@@ -37,8 +38,14 @@ class GetTemperatureCommand extends Command
      */
     public function handle()
     {
-        //$temperature = rand(22, 23);
-        $temperature = exec('cat /var/run/papouch-tmu/temperature');
+
+        $environment = App::environment();
+
+        if($environment == 'local') {
+            $temperature = rand(22, 23);
+        } else {
+            $temperature = exec('cat /var/run/papouch-tmu/temperature');
+        }
         $this->comment($temperature);
     }
 }

@@ -107,11 +107,16 @@ class GraphController extends Controller
 //        print_r($result['data']['temp']);
 
 
-        $result = array(
-                    'min' => round( min($result['data']['temp']), 2),
-                    'avg' => round( array_sum($result['data']['temp']) / count($result['data']['temp']), 2),
-                    'max' => round( max($result['data']['temp']), 2),
-        );
+        if(!empty($result['data']['temp'])) {
+            $result = array(
+                'min' => round( min($result['data']['temp']), 2),
+                'avg' => round( array_sum($result['data']['temp']) / count($result['data']['temp']), 2),
+                'max' => round( max($result['data']['temp']), 2),
+            );
+        } else {
+            $result = array();
+        }
+
         return $result;
     }
 

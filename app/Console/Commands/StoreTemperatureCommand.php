@@ -7,6 +7,7 @@ use \Illuminate\Support\Facades\Config;
 use \Log;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use Illuminate\Support\Facades\App;
 
 class StoreTemperatureCommand extends Command
 {
@@ -106,10 +107,18 @@ class StoreTemperatureCommand extends Command
      */
     public function getTemperature()
     {
-        //$temp = rand(22, 23);
-        //$temp = $temp . "." . rand(1, 100);
-        //return (float)$temp;
-        return $temp = exec('cat /var/run/papouch-tmu/temperature');
+
+        $environment = App::environment();
+
+        if($environment == 'local') {
+            $temp = rand(22, 23);
+            $temp = $temp . "." . rand(1, 100);
+            $temp = (float)$temp;
+        } else {
+            $temp = exec('cat /var/run/papouch-tmu/temperature');
+        }
+
+        return $temp;
     }
 
     public function checkLogsForErrors()
