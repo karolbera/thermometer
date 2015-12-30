@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use \Illuminate\Support\Facades\Config;
+use \Log;
 
 class SendReportCommand extends Command
 {
@@ -11,14 +13,14 @@ class SendReportCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'temperature:mailReport';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description.';
+    protected $description = 'Sends mail report with temperatures from current week.';
 
     /**
      * Create a new command instance.
