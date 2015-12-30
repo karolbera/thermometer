@@ -114,6 +114,7 @@ class StoreTemperatureCommand extends Command
             $temp = (float)$temp;
         } else {
             $temp = exec('cat /var/run/papouch-tmu/temperature');
+            $temp = round($temp, 2);
         }
 
         return $temp;
