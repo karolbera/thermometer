@@ -41,12 +41,8 @@
 <div class="container">
     <div class="content">
 
-        {{--<h2>current: <b>{{ $temp }} &deg;C </b></h2>--}}
-        {{--{!! HTML::image('login-hour.gif', 'a picture') !!} <br/>--}}
-        {!! HTML::image('login-day.gif', 'a picture') !!} <br/>
-        {!! HTML::image('login-week.gif', 'a picture') !!} <br/>
-        {{--{!! HTML::image('login-month.gif', 'a picture') !!}<br/>--}}
-        {{--{!! HTML::image('login-year.gif', 'a picture') !!}<br/>--}}
+        <img src="{{ $message->embed(public_path() . '/login-day.gif') }}" /> <br/>
+        <img src="{{ $message->embed(public_path() . '/login-week.gif') }}" /> <br/>
 
     </div>
 </div>
